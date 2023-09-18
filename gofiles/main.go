@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"strings"
 )
 
@@ -14,6 +15,8 @@ func main() {
 	getReq()
 	fmt.Println("Printing POST response: ")
 	postReq()
+	fmt.Println("Printing POST Form response: ")
+	postFormReq()
 }
 
 func getReq() {
@@ -32,6 +35,18 @@ func postReq() {
 	}
 	`)
 	res, err := http.Post(BaseUrl, "application/json", requestBody)
+	handleNilError(err)
+	defer res.Body.Close()
+
+	userdata, err := io.ReadAll(res.Body)
+	fmt.Println(string(userdata))
+}
+
+func postFormReq() {
+	requestBody := url.Values{}
+	requestBody.Add("username", "archan")
+	requestBody.Add("email", "archan@gmail.com")
+	res, err := http.PostForm(BaseUrl, requestBody)
 	handleNilError(err)
 	defer res.Body.Close()
 
