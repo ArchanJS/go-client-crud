@@ -1,11 +1,10 @@
 package main
 
 import (
-	"bytes"
-	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
+	"strings"
 )
 
 const BaseUrl string = "http://localhost:8000"
@@ -26,9 +25,13 @@ func getReq() {
 	fmt.Println(string(data))
 }
 func postReq() {
-	data := map[string]string{"username": "archan", "email": "archan@gmail.com"}
-	jsonData, err := json.Marshal(data)
-	res, err := http.Post(BaseUrl, "application/json", bytes.NewBuffer(jsonData))
+	requestBody := strings.NewReader(`
+	{
+		"username": "archan",
+		"email": "archan@gmail.com"
+	}
+	`)
+	res, err := http.Post(BaseUrl, "application/json", requestBody)
 	handleNilError(err)
 	defer res.Body.Close()
 
