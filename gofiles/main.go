@@ -15,8 +15,8 @@ type course struct {
 func convertIntoJson() {
 	courses := []course{
 		{Name: "web dev", Author: "archan", Price: 900, Tags: []string{"web-dev", "javascript"}},
-		{Name: "ml", Author: "sudin", Price: 1000, Tags: []string{"ml", "python"}},
-		{Name: "app dev", Author: "jaydip", Price: 1200, Tags: nil},
+		{Name: "ml", Author: "archan2", Price: 1000, Tags: []string{"ml", "python"}},
+		{Name: "app dev", Author: "archan3", Price: 1200, Tags: nil},
 	}
 	coursesJson, _ := json.MarshalIndent(courses, "", " ")
 	fmt.Printf("%s", coursesJson)
